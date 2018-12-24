@@ -22,7 +22,7 @@ export interface ApplicationState {
 
 export default (history: History.History): Store<ApplicationState> => {
 
-  const middleware = process.env.NODE === 'development' ? composeWithDevTools(
+  const middleware = process.env.NODE_ENV === 'development' ? composeWithDevTools(
     applyMiddleware(routerMiddleware(history)),
     applyMiddleware(thunk)
   ) : compose(
