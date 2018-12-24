@@ -1,20 +1,21 @@
+import * as History from 'history';
 import * as React from 'react';
+import { Provider } from 'react-redux';
+import { Store } from 'redux';
 import './App.css';
-
-import logo from './logo.svg';
+import { createHistory, Router } from './routes';
+import { ApplicationState, createStore } from './store';
 
 class App extends React.Component {
+  private history: History.History = createHistory();
+
+  private store: Store<ApplicationState> = createStore(this.history);
+  
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <Provider store={this.store}>
+        <Router history={this.history} />
+      </Provider>
     );
   }
 }
